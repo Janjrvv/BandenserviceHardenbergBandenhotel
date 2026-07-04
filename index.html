@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bandenservice Hardenberg</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-locked">
+  <section class="auth-screen" id="authScreen" aria-labelledby="authTitle">
+    <form class="auth-card" id="authForm" novalidate>
+      <p class="eyebrow">Beveiligde toegang</p>
+      <h1 id="authTitle">Bandenservice Hardenberg</h1>
+      <p class="auth-copy">Voer het wachtwoord in om klantgegevens en registraties te openen.</p>
+      <div class="field">
+        <label for="accessPassword">Wachtwoord</label>
+        <input type="password" id="accessPassword" autocomplete="current-password" required>
+        <small class="field-error" id="accessPasswordError"></small>
+      </div>
+      <button class="btn btn-primary" type="submit">Website openen</button>
+    </form>
+  </section>
+
+  <header class="app-header">
+    <div class="header-content">
+      <p class="eyebrow">Autogarage opslagbeheer</p>
+      <h1>Bandenservice Hardenberg</h1>
+      <p class="intro">
+        Check klantbanden in, koppel ze aan een vaste opslaglocatie en vind registraties direct terug.
+      </p>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="dashboard" aria-labelledby="dashboard-title">
+      <div class="section-heading">
+        <p class="eyebrow">Live overzicht</p>
+        <h2 id="dashboard-title">Dashboard</h2>
+      </div>
+
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">L</span>
+          <div>
+            <p>Totaal locaties</p>
+            <strong id="totalSlots">78</strong>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">S</span>
+          <div>
+            <p>Totaal set-plekken</p>
+            <strong id="totalSetSlots">468</strong>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">B</span>
+          <div>
+            <p>Bezette set-plekken</p>
+            <strong id="occupiedSlots">0</strong>
+          </div>
+        </article>
+        <article class="stat-card">
+          <span class="stat-icon" aria-hidden="true">V</span>
+          <div>
+            <p>Vrije set-plekken</p>
+            <strong id="freeSlots">468</strong>
+          </div>
+        </article>
+        <article class="stat-card accent">
+          <span class="stat-icon" aria-hidden="true">%</span>
+          <div>
+            <p>Bezettingspercentage</p>
+            <strong id="occupancyRate">0%</strong>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="workspace-grid">
+      <section class="panel checkin-panel" aria-labelledby="checkin-title">
+        <div class="section-heading">
+          <p class="eyebrow">Nieuwe registratie</p>
+          <h2 id="checkin-title">Banden inchecken</h2>
+        </div>
+
+        <form id="checkinForm" novalidate>
+          <fieldset>
+            <legend>Klantgegevens</legend>
+            <div class="form-grid">
+              <div class="field full-width customer-field">
+                <label for="customerName">Naam klant</label>
+                <input type="text" id="customerName" name="customerName" autocomplete="off" aria-describedby="customerNameError" required>
+                <ul class="suggestions" id="customerSuggestions" aria-label="Klantsuggesties"></ul>
+                <small class="field-error" id="customerNameError"></small>
+              </div>
+
+              <div class="field">
+                <label for="customerEmail">E-mailadres</label>
+                <input type="email" id="customerEmail" name="customerEmail" aria-describedby="customerEmailError" required>
+                <small class="field-error" id="customerEmailError"></small>
+              </div>
+
+              <div class="field">
+                <label for="customerPhone">Telefoonnummer</label>
+                <input type="tel" id="customerPhone" name="customerPhone" aria-describedby="customerPhoneError" required>
+                <small class="field-error" id="customerPhoneError"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Autogegevens</legend>
+            <div class="form-grid">
+              <div class="field">
+                <label for="licensePlate">Kenteken</label>
+                <input type="text" id="licensePlate" name="licensePlate" aria-describedby="licensePlateError" required>
+                <small class="field-error" id="licensePlateError"></small>
+              </div>
+
+              <div class="field">
+                <label for="carType">Type auto</label>
+                <input type="text" id="carType" name="carType" aria-describedby="carTypeError" required>
+                <small class="field-error" id="carTypeError"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Bandeninformatie</legend>
+            <div class="form-grid">
+              <div class="field">
+                <label for="tireProfile">Profiel</label>
+                <input type="text" id="tireProfile" name="tireProfile" placeholder="Bijv. 6 mm" aria-describedby="tireProfileError" required>
+                <small class="field-error" id="tireProfileError"></small>
+              </div>
+
+              <div class="field">
+                <label for="tireBrand">Merk band</label>
+                <input type="text" id="tireBrand" name="tireBrand" aria-describedby="tireBrandError" required>
+                <small class="field-error" id="tireBrandError"></small>
+              </div>
+
+              <div class="field full-width">
+                <label for="tireName">Band naam</label>
+                <input type="text" id="tireName" name="tireName" aria-describedby="tireNameError" required>
+                <small class="field-error" id="tireNameError"></small>
+              </div>
+
+              <div class="field full-width">
+                <label for="tireSeason">Bandensoort</label>
+                <select id="tireSeason" name="tireSeason" aria-describedby="tireSeasonError" required>
+                  <option value="">Kies bandensoort</option>
+                  <option value="Zomerbanden">Zomerbanden</option>
+                  <option value="Winterbanden">Winterbanden</option>
+                </select>
+                <small class="field-error" id="tireSeasonError"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Opslag</legend>
+            <div class="form-grid">
+              <div class="field full-width">
+                <label for="storageLocation">Opslaglocatie kiezen</label>
+                <select id="storageLocation" name="storageLocation" aria-describedby="storageLocationError" required>
+                  <option value="">Kies een locatie met vrije set-plek</option>
+                </select>
+                <span class="field-hint">De eerste vrije set-plek binnen deze locatie wordt automatisch gebruikt.</span>
+                <small class="field-error" id="storageLocationError"></small>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Banden inchecken</button>
+            <button class="btn btn-secondary" type="reset">Formulier wissen</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel locations-panel" aria-labelledby="locations-title">
+        <div class="section-heading split">
+          <div>
+            <p class="eyebrow">A1 tot en met Z3</p>
+            <h2 id="locations-title">Locatie-overzicht</h2>
+          </div>
+          <div class="legend" aria-label="Legenda">
+            <span><i class="dot free"></i>Vrij</span>
+            <span><i class="dot occupied"></i>Bezet</span>
+            <span><i class="dot full"></i>Vol</span>
+            <span><i class="dot selected"></i>Geselecteerd</span>
+            <span><i class="dot long-six"></i>Langer dan 6 maanden</span>
+            <span><i class="dot long-year"></i>Langer dan 1 jaar</span>
+          </div>
+        </div>
+
+        <div class="location-grid" id="locationGrid" aria-label="Alle opslaglocaties"></div>
+        <div class="location-set-details" id="locationSetDetails" aria-live="polite">
+          <strong>Selecteer een locatie</strong>
+          <p>Hier zie je per locatie Set 1 tot en met Set 6.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel register-panel" aria-labelledby="register-title">
+      <div class="section-heading split">
+        <div>
+          <p class="eyebrow">Ingecheckte banden</p>
+          <h2 id="register-title">Registratie-overzicht</h2>
+        </div>
+        <div class="register-controls">
+          <div class="control-field">
+            <label for="ageFilter">Ligduurfilter</label>
+            <select id="ageFilter">
+              <option value="all">Toon alles</option>
+              <option value="six">Langer dan 6 maanden</option>
+              <option value="year">Langer dan 1 jaar</option>
+            </select>
+          </div>
+          <div class="control-field search-field">
+            <label for="searchInput">Zoeken</label>
+            <input type="search" id="searchInput" placeholder="Klant, kenteken, locatie, merk..." autocomplete="off">
+          </div>
+          <div class="backup-actions" aria-label="Backup acties">
+            <button class="btn btn-primary" type="button" id="backupDownload">Backup downloaden</button>
+            <button class="btn btn-secondary" type="button" id="backupImport">Backup importeren</button>
+            <button class="btn btn-secondary" type="button" id="jsonOpen">Opgeslagen JSON-bestanden</button>
+            <button class="btn btn-secondary" type="button" id="trashOpen">Prullenbak</button>
+            <input class="visually-hidden" type="file" id="backupImportInput" accept="application/json,.json">
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Locatie</th>
+              <th>Set</th>
+              <th>Naam klant</th>
+              <th>E-mail</th>
+              <th>Telefoon</th>
+              <th>Kenteken</th>
+              <th>Type auto</th>
+              <th>Profiel</th>
+              <th>Merk band</th>
+              <th>Band naam</th>
+              <th>Bandensoort</th>
+              <th>Ligduur</th>
+              <th>Datum</th>
+              <th>Acties</th>
+            </tr>
+          </thead>
+          <tbody id="registrationsBody"></tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <strong>Nog geen banden ingecheckt</strong>
+        <p>Gebruik het formulier om de eerste registratie toe te voegen.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="detail-modal" id="detailModal" aria-labelledby="modalTitle">
+    <article class="modal-panel">
+      <button class="icon-button close-button" type="button" id="closeModal" aria-label="Details sluiten">x</button>
+      <p class="eyebrow">Registratiedetails</p>
+      <h2 id="modalTitle">Bandenregistratie</h2>
+      <div class="detail-grid" id="modalDetails"></div>
+    </article>
+  </dialog>
+
+  <dialog class="detail-modal trash-modal" id="trashModal" aria-labelledby="trashTitle">
+    <article class="modal-panel">
+      <button class="icon-button close-button" type="button" id="closeTrashModal" aria-label="Prullenbak sluiten">x</button>
+      <p class="eyebrow">Beveiligde prullenbak</p>
+      <h2 id="trashTitle">Verwijderde registraties</h2>
+
+      <form class="trash-auth" id="trashAuthForm" novalidate>
+        <p class="auth-copy">Voer het prullenbakwachtwoord in om verwijderde registraties te bekijken.</p>
+        <div class="field">
+          <label for="trashPassword">Wachtwoord prullenbak</label>
+          <input type="password" id="trashPassword" autocomplete="off" required>
+          <small class="field-error" id="trashPasswordError"></small>
+        </div>
+        <button class="btn btn-primary" type="submit">Prullenbak openen</button>
+      </form>
+
+      <div class="trash-content" id="trashContent" hidden>
+        <div class="register-controls trash-controls">
+          <div class="control-field">
+            <label for="trashAgeFilter">Ligduurfilter</label>
+            <select id="trashAgeFilter">
+              <option value="all">Toon alles</option>
+              <option value="six">Langer dan 6 maanden</option>
+              <option value="year">Langer dan 1 jaar</option>
+            </select>
+          </div>
+          <div class="control-field search-field">
+            <label for="trashSearchInput">Zoeken in prullenbak</label>
+            <input type="search" id="trashSearchInput" placeholder="Klant, kenteken, locatie, merk..." autocomplete="off">
+          </div>
+        </div>
+
+        <div class="table-wrap trash-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Verwijderd op</th>
+                <th>Locatie</th>
+                <th>Set</th>
+                <th>Naam klant</th>
+                <th>E-mail</th>
+                <th>Telefoon</th>
+                <th>Kenteken</th>
+                <th>Type auto</th>
+                <th>Profiel</th>
+                <th>Merk band</th>
+                <th>Band naam</th>
+                <th>Bandensoort</th>
+                <th>Ligduur</th>
+                <th>Datum inchecken</th>
+                <th>Acties</th>
+              </tr>
+            </thead>
+            <tbody id="trashBody"></tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="trashEmptyState">
+          <strong>Prullenbak is leeg</strong>
+          <p>Verwijderde registraties verschijnen hier na wachtwoordcontrole.</p>
+        </div>
+      </div>
+    </article>
+  </dialog>
+
+  <dialog class="detail-modal json-modal" id="jsonModal" aria-labelledby="jsonTitle">
+    <article class="modal-panel">
+      <button class="icon-button close-button" type="button" id="closeJsonModal" aria-label="JSON-bestanden sluiten">x</button>
+      <p class="eyebrow">Beveiligde JSON-opslag</p>
+      <h2 id="jsonTitle">Opgeslagen JSON-bestanden</h2>
+
+      <form class="trash-auth" id="jsonAuthForm" novalidate>
+        <p class="auth-copy">Voer het wachtwoord in om automatisch opgeslagen JSON-bestanden te bekijken.</p>
+        <div class="field">
+          <label for="jsonPassword">Wachtwoord JSON-bestanden</label>
+          <input type="password" id="jsonPassword" autocomplete="off" required>
+          <small class="field-error" id="jsonPasswordError"></small>
+        </div>
+        <button class="btn btn-primary" type="submit">JSON-bestanden openen</button>
+      </form>
+
+      <div class="trash-content" id="jsonContent" hidden>
+        <div class="table-wrap snapshot-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Bestandsnaam</th>
+                <th>Aangemaakt</th>
+                <th>Reden</th>
+                <th>Acties</th>
+              </tr>
+            </thead>
+            <tbody id="jsonSnapshotBody"></tbody>
+          </table>
+        </div>
+
+        <div class="empty-state" id="jsonEmptyState">
+          <strong>Nog geen JSON-bestanden</strong>
+          <p>Automatische JSON-snapshots verschijnen hier na invoer of wijzigingen.</p>
+        </div>
+
+        <pre class="json-preview" id="jsonPreview" hidden></pre>
+      </div>
+    </article>
+  </dialog>
+
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+  <footer class="app-footer">
+    <p>Bandenservice Hardenberg</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
